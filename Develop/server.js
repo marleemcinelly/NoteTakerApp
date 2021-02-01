@@ -3,9 +3,9 @@ var fs = require("fs");
 
 var PORT = process.env.PORT || 3001;
 
-var server = http.createSevrer(handleRequest);
+var server = http.createServer(handleRequest);
 
-function handlerequest(req, res) {
+function handleRequest(req, res) {
     fs.readFile(__dirname + "/index.html", function (err, data) {
         if (err) throw err;
         res.writeHead(200, {"Content-Type": "text/html"});
