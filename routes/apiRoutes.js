@@ -7,19 +7,14 @@ module.exports = function(app){
 
     // GET function
     app.get("/api/notes", function(req, res) {
-        fs.readFile(__dirname + "/db.json",function(err, data){
-            if(err) throw err;
-            res.writeHead(200, {"Content-Type":"text/html"});
-            res.end(data);
-        });
-
-        res.json(database);
+        res(database);
     });
 
     // POST function
     app.post("/api/notes", function(req, res){
         database.push(req.body);
         res.json(true);
+        console.log(database);
     });
 
     // DELETE function
