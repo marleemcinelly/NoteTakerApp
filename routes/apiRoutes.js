@@ -1,9 +1,30 @@
 // LOAD DATA
-var database = require("../db/db");
-var fs = require("fs");
+const fs = require("fs");
+const path = require("path");
+
+// REQUIRED FUNCTIONS
+function getAllNotes() {
+    const data = fs.readFileSynch("../db/db.json", "utf8");
+    return JSON.parse(data);
+}
+
+function deleteNote(noteId) {
+
+}
+
+function addNote(note) {
+
+}
+
+function updateDbJSON() {
+    fs.writeFile("db/db.json", JSON.stringify(notes, "\t"), err => {
+        if (err) throw err;
+        return true;
+    })
+}
 
 // ROUTING
-module.exports = function(app){
+module.exports = (app) => {
 
     // GET function
     app.get("/api/notes", function(req, res) {
@@ -19,6 +40,6 @@ module.exports = function(app){
 
     // DELETE function
     app.delete("/api/notes/:id", function(req, res){
-        // gotta figure out how to read unique ids, which will need to be assigned in the above functions because god is laughing at my pain
-    })
+        res.send("Deleted")
+    });
 };
