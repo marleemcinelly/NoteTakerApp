@@ -13,7 +13,7 @@ module.exports = function(app){
     // POST function
     app.post("/api/notes", function(req, res){
         database.push(req.body);
-        res.json(true);
+        res.json(false);
         console.log(database);
     });
 
