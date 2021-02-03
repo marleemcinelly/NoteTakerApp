@@ -7,6 +7,12 @@ module.exports = function(app){
 
     // GET function
     app.get("/api/notes", function(req, res) {
+        fs.readFile(__dirname + "/db.json",function(err, data){
+            if(err) throw err;
+            res.writeHead(200, {"Content-Type":"text/html"});
+            res.end(data);
+        });
+
         res.json(database);
     });
 
