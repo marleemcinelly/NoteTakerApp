@@ -7,7 +7,7 @@ module.exports = function(app){
 
     // GET function
     app.get("/api/notes", function(req, res) {
-        res(database);
+        res.json(database);
     });
 
     // POST function
