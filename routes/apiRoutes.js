@@ -11,24 +11,33 @@ function getAllNotes() {
 
 function deleteNote(noteId) {
     // load notes from db into an array
-    fs.readFile("../db/db.json", "utf8", (error, data) =>
-        error ? console.error(error) : console.log(data)
-    );
+            // fs.readFile("../db/db.json", "utf8", (error, data) =>
+            //     error ? console.error(error) : console.log(data)
+            // );
+        const data = fs.readFileSynch("../db/db.json", "utf8");
+        return JSON.parse(data);    
     //remove the note from the array using noteId parameter
 
     // save the notes array back into db
-    fs.appendFile("../db/db.json", data.stack.join(',') + "\n", (err) => {});
+            // fs.appendFile("../db/db.json", data.stack.join(',') + "\n", (err) => {});
 };
 
 function addNote(note) {
     // load all the notes from db into an array
-    fs.readFile("../db/db.json", "utf8", (error, data) =>
-        error ? console.error(error) : console.log(data)
-    );
-    // add the new note using the note parameter
+                // fs.readFile("../db/db.json", "utf8", (error, data) =>
+                //     error ? console.error(error) : console.log(data)
+                // );
+        const data = fs.readFileSynch("../db/db.json", "utf8");
+        var noteArray = JSON.parse(data);  
 
+    // add the new note using the note parameter
+        var newNote = req.body;
+        newNote.routeName = newNote.id.replace(/\s+/g,"").toLowerCase;
+        console.log(newNote);
     //save the notes array back into db
-    fs.appendFile("../db/db.json", data.stack.join(',') + "\n", (err) => {});
+                // fs.appendFile("../db/db.json", data.stack.join(',') + "\n", (err) => {});
+        noteArray.push(newNote);
+        res.json(newNote);
 };
 
 function updateDbJSON() {
