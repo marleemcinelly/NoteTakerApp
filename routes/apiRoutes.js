@@ -4,7 +4,7 @@ const path = require("path");
 var shortid = require("shortid");
 const notesArray = require("../db/db.json");
 
-            // // REQUIRED FUNCTIONS fuck these actually
+            // // REQUIRED FUNCTIONS 
             // function getAllNotes() {
             //     const data = fs.readFileSync("./db/db.json", "utf8");
             //     return JSON.parse(data);
@@ -54,6 +54,7 @@ module.exports = (app) => {
     // GET function
     app.get("/api/notes", function(req, res) {
         res.json(notesArray);
+
     });
 
     // POST function
@@ -63,8 +64,6 @@ module.exports = (app) => {
         const newNote = req.body;
         const file = path.join(__dirname, "../db/db.json");
 
-        // newNote.title = "";
-        // newNote.text = "";
         newNote.id = shortid.generate();
         notesArray.push(newNote);
 
