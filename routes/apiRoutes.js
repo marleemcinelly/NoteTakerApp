@@ -4,7 +4,8 @@ const path = require("path");
 var shortid = require("shortid");
 const notesArray = require("../db/db.json");
 
-            // // REQUIRED FUNCTIONS 
+            // // REQUIRED FUNCTIONS <- will potentially refactor to include in a later build
+
             // function getAllNotes() {
             //     const data = fs.readFileSync("./db/db.json", "utf8");
             //     return JSON.parse(data);
@@ -12,40 +13,29 @@ const notesArray = require("../db/db.json");
 
             // function deleteNote(noteId) {
             //     // load notes from db into an array
-            //             // fs.readFile("../db/db.json", "utf8", (error, data) =>
-            //             //     error ? console.error(error) : console.log(data)
-            //             // );
-            //         const data = fs.readFileSync("./db/db.json", "utf8");
-            //         return JSON.parse(data);    
+                            
             //     //remove the note from the array using noteId parameter
 
             //     // save the notes array back into db
-            //             // fs.appendFile("../db/db.json", data.stack.join(',') + "\n", (err) => {});
+                        // updateDbJSON();
+            
             // };
 
             // function addNote(note) {
             //     // load all the notes from db into an array
-            //                 // fs.readFile("../db/db.json", "utf8", (error, data) =>
-            //                 //     error ? console.error(error) : console.log(data)
-            //                 // );
-            //         const data = fs.readFileSync("./db/db.json", "utf8");
-            //         var noteArray = JSON.parse(data);  
 
             //     // add the new note using the note parameter
-            //         // var newNote = req.body;
-            //         req.body.routeName = req.body.id.replace(/\s+/g,"").toLowerCase;
-            //         console.log(req.body);
+
             //     //save the notes array back into db
-            //                 // fs.appendFile("../db/db.json", data.stack.join(',') + "\n", (err) => {});
-            //         noteArray.push(req.body);
-            //         res.json(req.body)
+                        // updateDbJSON();
+
             // };
 
             // function updateDbJSON() {
-            //     fs.writeFile("./db/db.json", JSON.stringify(notes, "\t"), err => {
+            //     fs.writeFile("/db/db.json", JSON.stringify(notes, "\t"), err => {
             //         if (err) throw err;
             //         return true;
-            //     })
+            //     });
             // };
 
 // ROUTING
@@ -53,16 +43,22 @@ module.exports = (app) => {
 
     // GET function
     app.get("/api/notes", function(req, res) {
+
+        // getAllNotes(); <- for later refactor
+
         res.json(notesArray);
 
     });
 
     // POST function
     app.post("/api/notes", function(req, res){
-        // google "node unique id" to figure out how to add a unique id
-        // // this is how ---> console.log(shortid.generate());
+        // note to self: google "node unique id" to figure out how to add a unique id
+        // // answer to self: this is how ---> console.log(shortid.generate());
+
         const newNote = req.body;
         const file = path.join(__dirname, "../db/db.json");
+
+        // addNote(); <- for later refactor
 
         newNote.id = shortid.generate();
         notesArray.push(newNote);
@@ -79,6 +75,8 @@ module.exports = (app) => {
     app.delete("/api/notes/:id", function(req, res){
         var id = req.params.id;
         const file = path.join(__dirname, "../db/db.json");
+
+        // deleteNote(); <- for later refactor
 
         for(const note of notesArray){
             if(id === note.id){
