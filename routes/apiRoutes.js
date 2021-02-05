@@ -59,10 +59,12 @@ module.exports = (app) => {
     // POST function
     app.post("/api/notes", function(req, res){
         // google "node unique id" to figure out how to add a unique id
-        console.log(shortid.generate());
+        // // this is how ---> console.log(shortid.generate());
         const newNote = req.body;
         const file = path.join(__dirname, "../db/db.json");
 
+        // newNote.title = "";
+        // newNote.text = "";
         newNote.id = shortid.generate();
         notesArray.push(newNote);
 
@@ -76,8 +78,19 @@ module.exports = (app) => {
 
     // DELETE function
     app.delete("/api/notes/:id", function(req, res){
-        var noteId = req.params.id;
-        
-        res.send();
+        var id = req.params.id;
+        const file = path.join(__dirname, "../db/db.json");
+
+        for(const note of notesArray){
+            if(id === note.id){
+                const index = notesArray.indexOf(note);
+                notesArray.splice(index, 1);
+                fs.writeFile(file, JSON.stringify(notesArray, null, 4), (err) => {
+                    if (err) throw err;
+                    console.log("note deleted");
+                });
+                res.send();
+            }
+        }
     });
 };
